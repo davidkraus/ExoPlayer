@@ -13,11 +13,23 @@
 // limitations under the License.
 apply plugin: 'android-library'
 
+// Manifest version information!
+def versionMajor = 0
+def versionMinor = 0
+def versionPatch = 1
+
+version = "${versionMajor}.${versionMinor}.${versionPatch}"
+group = "com.google.android.exoplayer"
+
 android {
     compileSdkVersion 19
     buildToolsVersion "19.1"
 
     defaultConfig {
+
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100
+        versionName = project.version
+
         minSdkVersion 9
         targetSdkVersion 19
     }
@@ -47,3 +59,5 @@ android.libraryVariants.all { variant ->
     task.from variant.javaCompile.destinationDir
     artifacts.add('archives', task);
 }
+
+apply from: 'https://bitbucket.org/api/1.0/repositories/dengler/mvn_repo/raw/master/publish.gradle'
